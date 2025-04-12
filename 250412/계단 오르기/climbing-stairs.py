@@ -6,15 +6,8 @@ memo[2] = 1
 if n >=3:
     memo[3] = 1
 
-def solve(x):
-    if memo[x] != 0:
-        return memo[x]
-    elif x >= 3:
-        memo[x] = memo[x-2] + memo[x-3]
-        return memo[x]
-    elif x>=2:
-        memo[x] = memo[x-2]
-        return memo[x]
+for i in range(4,n+1):
+    memo[i] = memo[i-2] + memo[i-3]
 
-ans = solve(n)
+ans = memo[n]
 print(ans)
