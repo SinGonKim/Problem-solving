@@ -30,7 +30,7 @@ def choose(idx):
             # memoization
             temp = arr[:]
             temp.append(i)
-            key = tuple(sorted(temp))
+            key = "".join(map(str,temp))
 
             if memo[key] == 1:
                 continue
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     N, M = map(int, input().split())
 
 
-    nums = [0] + list(map(int, input().split()))
+    nums = [0] + sorted(list(map(int, input().split())))
 
     if M == 1:
         print(max(nums))
