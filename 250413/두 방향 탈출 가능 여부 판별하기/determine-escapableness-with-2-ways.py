@@ -17,7 +17,7 @@ def dfs(x,y):
         return
     for dx, dy in zip(dxs,dys):
         nx = x +dx ; ny = y + dy
-        if is_range(nx,ny) and grid[nx][ny] == 1:
+        if is_range(nx,ny) and grid[nx][ny] == 1 and visited[nx][ny]==0:
             dfs(nx,ny)
 
 dfs(0,0)
