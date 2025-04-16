@@ -19,7 +19,7 @@ def bfs():
 
     while len(que):
         x, y = que.popleft()
-        if x == n-1 and y == n-1:
+        if x == n-1 and y == m-1:
             return 1
 
         for dx, dy in zip(dxs, dys):
