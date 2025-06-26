@@ -3,10 +3,10 @@ m = list(map(int, input().split()))
 
 # Please write your code here.
 import bisect
-dp = [0 for _ in range(n)]
+dp = [1 for _ in range(n)]
 stack = []
 stack.append(m[0])
-dp[0] = 1
+
 for i in range(1,n):
     idx = bisect.bisect_left(stack,m[i])
     if idx == len(stack):
