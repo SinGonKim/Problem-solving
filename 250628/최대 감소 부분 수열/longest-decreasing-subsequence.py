@@ -12,5 +12,6 @@ for i in range(1,n):
     if idx == 0:
         stack = [m[i]] + stack
     else:
+        if len(stack) > idx and stack[idx] == m[i]:continue
         stack[idx-1]  = m[i]
 print(len(stack))
