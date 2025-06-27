@@ -4,7 +4,7 @@ n = int(input())
 arr = list(map(int, input().split()))
 
 min_val = -sys.maxsize 
-dp = [min_val  for _ in range(n)]
+dp = [0  for _ in range(n)]
 dp[0] = 0
 
 for i in range(1, n) : 
