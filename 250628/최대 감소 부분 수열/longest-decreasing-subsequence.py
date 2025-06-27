@@ -1,17 +1,16 @@
+import sys
+
 n = int(input())
-m = list(map(int, input().split()))
+arr = list(map(int, input().split()))
 
-# Please write your code here.
-import bisect
+min_val = -sys.maxsize 
+dp = [min_val  for _ in range(n)]
+dp[0] = 0
 
-stack = []
-stack.append(m[0])
-
-for i in range(1,n):
-    idx = bisect.bisect_left(stack,m[i])
-    if idx == 0:
-        stack = [m[i]] + stack
-    else:
-        if len(stack) > idx and stack[idx] == m[i]:continue
-        stack[idx-1]  = m[i]
-print(len(stack))
+for i in range(1, n) : 
+    for j in range(i) : 
+        
+        if arr[i] < arr[j] : 
+            #print(arr[i], arr[j])
+            dp[i] = max(dp[i], dp[j] + 1)
+print(max(dp) + 1)
