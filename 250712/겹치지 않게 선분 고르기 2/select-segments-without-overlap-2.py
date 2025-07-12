@@ -13,7 +13,7 @@ def solution():
     last_end = -1
 
     for s, e in a:
-        if s >= last_end:
+        if s > last_end:
             cnt += 1
             last_end = e
     return cnt
