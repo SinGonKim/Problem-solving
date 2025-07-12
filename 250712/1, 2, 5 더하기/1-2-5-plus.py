@@ -5,8 +5,7 @@ mod = 10007
 dp = [0 for _ in range(n+1)]
 dp[0] = 1
 for i in range(n+1):
-    for j in coin:
-        if i + j > n: continue
-        dp[i+j] += dp[i]
-        dp[i+j]%mod
+    for j in range(len(coin)):
+        if i - coin[j] <0: continue
+        dp[i] = (dp[i] + dp[i-coin[j]])%mod
 print(dp[n]) 
