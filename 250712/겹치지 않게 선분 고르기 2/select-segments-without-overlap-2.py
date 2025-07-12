@@ -2,7 +2,7 @@ import sys
 MIN_INT = -sys.maxsize -1
 n = int(input())
 a = [tuple(map(int, input().split())) for _ in range(n)]
-a.sort()
+a.sort(key=lambda x: (x[1],x[0]), reverse=True)
 
 # Please write your code here.
 dp = [1 for _ in range(n)]
