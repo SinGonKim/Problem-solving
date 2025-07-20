@@ -16,13 +16,13 @@ for i in range(1,n+1):
     for j in range(k+1):
         if numbers[i] >= 0:
             if dp[i-1][j] == -INF:
-                dp[i][j] = max(numbers[i], numbers[i])
+                dp[i][j] = max(dp[i][j], numbers[i])
             else:
-                dp[i][k] = max(dp[i-1][k] + numbers[i], numbers[i])
+                dp[i][k] = max(dp[i-1][j] + numbers[i], numbers[i])
         else:
             if k>=1:
                 if dp[i-1][j-1] == -INF:
-                    dp[i][k] = max(dp[i][k], numbers[i])
+                    dp[i][k] = max(dp[i][j], numbers[i])
                 else:
                     dp[i][j] = max(dp[i-1][j-1]+numbers[i], numbers[i])
     max_result = max(max_result, max(dp[i]))
