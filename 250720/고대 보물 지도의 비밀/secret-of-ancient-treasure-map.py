@@ -16,7 +16,7 @@ for i in range(1,n+1):
     for j in range(k+1):
         if numbers[i] >= 0:
             if dp[i-1][j] == -INF:
-                dp[i][j] = max(numbers[i], dp[i][j])
+                dp[i][j] = max(numbers[i], numbers[i])
             else:
                 dp[i][k] = max(dp[i-1][k] + numbers[i], numbers[i])
         else:
