@@ -8,7 +8,7 @@ dp = [[0 for _ in range(n+1)] for _ in range(n+1)]
 
 for i in range(1, len(first_cards)):
     for j in range(1, len(second_cards)):
-        if first_cards[i] < second_cards[j]:
+        if first_cards[i] <= second_cards[j]:
             dp[i][j] = max(dp[i-1][j-1], dp[i][j])
             dp[i][j] = max(dp[i-1][j], dp[i][j])
         else:
