@@ -6,7 +6,7 @@ INF = sys.maxsize
 dp = [[-INF for _ in range(k+1)] for _ in range(n+1)]
 
 for i in range(n+1):
-    if numbers[i]:
+    if numbers[i] >= 0:
         dp[i][0] = numbers[i]
     else:
         dp[i][1] = numbers[i]
@@ -20,7 +20,7 @@ for i in range(1,n+1):
             else:
                 dp[i][j] = max(dp[i-1][j] + numbers[i], numbers[i])
         else:
-            if k>=1:
+            if j>=1:
                 if dp[i-1][j-1] == -INF:
                     dp[i][j] = max(dp[i][j], numbers[i])
                 else:
