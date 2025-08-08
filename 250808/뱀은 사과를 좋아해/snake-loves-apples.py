@@ -34,7 +34,7 @@ def set_up(x,y):
 set_up(0,0)
 
 def move(direction):
-    X, Y, head = 0, 0, 0
+    head = 0
     x, y = snake[head]
 
     if direction == "L":
@@ -42,6 +42,7 @@ def move(direction):
         if nx < 0 or nx >=N or ny<0 or ny>=N:return True
         if apple[nx][ny]:
             apple[nx][ny] = False
+            snake.appendleft((nx,ny))
         else:
             snake.appendleft((nx,ny))
             snake.pop()
