@@ -1,61 +1,75 @@
-from collections import deque 
+import sys
+from collections import deque
 
-N, M, K = map(int, input().split())
-apples = [tuple(map(lambda x: int(x)-1, input().split())) for _ in range(M)]
-movement = [tuple(map(lambda x: int(x) if x.isdecimal() else x, input().split())) for _ in range(K)]
+def read_input():
+    input = sys.stdin.readline
+    N, M, K = map(int, input().split())
 
-# 뱀의 모든 좌표를 기억해두는 배열
-snake = deque([(0, 0)])
-# 사과 위치를 표시하는 set (O(1) 조회)
-apple_set = {(apple_x, apple_y) for apple_x, apple_y in apples}
-# 뱀 위치를 표시하는 set (O(1) 조회 및 추가/삭제)
-snake_set = {(0, 0)}
+    # 사과 좌표는 0-index로 저장
+    apples = set()
+    for _ in range(M):
+        ax, ay = map(int, input().split())
+        apples.add((ax - 1, ay - 1))
 
-# 방향 매핑을 딕셔너리로 정의 (switch-case 대신)
-directions = {
-    'L': (0, -1),
-    'R': (0, 1),
-    'U': (-1, 0),
-    'D': (1, 0)
-}
+    moves = []
+    for _ in range(K):
+        d, t = input().split()
+        moves.append((d, int(t)))
+    return N, apples, moves
 
-def move(direction):
-    head_x, head_y = snake[0]  # deque의 첫 번째 원소가 머리
-    dx, dy = directions[direction]
-    nx, ny = head_x + dx, head_y + dy
-    
-    # 경계 체크
-    if nx < 0 or nx >= N or ny < 0 or ny >= N:
-        return True
-    
-    # 자기 몸과 충돌 체크
-    if (nx, ny) in snake_set:
-        return True
-    
-    # 새로운 머리 위치 추가
-    snake.appendleft((nx, ny))
-    snake_set.add((nx, ny))
-    
-    # 사과를 먹었는지 확인
-    if (nx, ny) in apple_set:
-        apple_set.remove((nx, ny))
-    else:
-        # 사과를 못 먹었다면 꼬리 제거
-        tail = snake.pop()
-        snake_set.remove(tail)
-    
-    return False
+def simulate(N, apples, moves):
+    # 뱀: head는 왼쪽(인덱스 0)
+    snake = deque([(0, 0)])
+    occupied = {(0, 0)}  # 몸이 차지한 칸 집합(O(1) 충돌 체크)
+    time = 0
+
+    dirvec = {
+        "L": (0, -1),
+        "R": (0,  1),
+        "U": (-1, 0),
+        "D": (1,  0),
+    }
+
+    for d, steps in moves:
+        dx, dy = dirvec[d]
+        for _ in range(steps):
+            time += 1
+            x, y = snake[0]
+            nx, ny = x + dx, y + dy
+
+            # 벽 충돌
+            if nx < 0 or nx >= N or ny < 0 or ny >= N:
+                print(time)
+                return
+
+            eat = (nx, ny) in apples
+
+            # 사과를 못 먹으면 꼬리가 한 칸 빠지므로,
+            # 충돌 체크 전에 꼬리 칸을 occupied에서 잠시 제거(자기자신 위로 이동 허용 케이스 방지)
+            if not eat:
+                tx, ty = snake[-1]
+                occupied.remove((tx, ty))
+
+            # 자기 몸 충돌
+            if (nx, ny) in occupied:
+                print(time)
+                return
+
+            # 이동 적용
+            snake.appendleft((nx, ny))
+            occupied.add((nx, ny))
+
+            if eat:
+                apples.remove((nx, ny))   # 길이 +1 (꼬리 유지)
+            else:
+                snake.pop()               # 꼬리 실제로 제거(위에서 occupied는 이미 제거됨)
+
+    # 모든 이동을 끝냈다면 마지막 시간 출력
+    print(time)
 
 def main():
-    seconds = 0
-    
-    for direction, times in movement:
-        for _ in range(times):
-            seconds += 1
-            if move(direction):
-                print(seconds)
-                return
-    
-    print(seconds)
+    N, apples, moves = read_input()
+    simulate(N, apples, moves)
 
-main()
+if __name__ == "__main__":
+    main()
