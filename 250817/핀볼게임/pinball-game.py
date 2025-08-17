@@ -15,6 +15,7 @@ def game_play(x, y, d):
         # 무한루프 체크: (위치, 방향) 조합이 반복되면 종료
         state = (x, y, d)
         if state in visited:
+            steps += 1
             break
         visited.add(state)
         
