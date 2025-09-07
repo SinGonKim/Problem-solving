@@ -12,6 +12,6 @@ for i in range(1, n):
             dp[i][j] += dp[i-1][j-1] 
         if j+1<10:
             dp[i][j] += dp[i-1][j+1]
-        dp[i][j]%=10**9 + 7
+        dp[i][j]=dp[i][j]%(10**9 + 7)
 
-print(sum(dp[n-1]))
+print(sum(dp[n-1])%(10**9 + 7))
