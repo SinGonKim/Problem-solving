@@ -9,13 +9,13 @@ dp = [[1001 for _ in range(m)] for _ in range(n)]
 
 dp[0][0] = 0 if A[0] == B[0] else 1
 
-for i in range(1,m):
+for i in range(1,n):
     if A[i] == B[0]:
         dp[i][0] = dp[i-1][0]
     else:
         dp[i][0] = dp[i-1][0] + 1
 
-for i in range(1,n):
+for i in range(1,m):
     if A[0] == B[i]:
         dp[0][i] = dp[0][i-1]
     else:
