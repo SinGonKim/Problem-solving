@@ -22,12 +22,12 @@ def bfs():
     dys = [-1,-2,-2,-1,1,2,2,1]
     while que:
         r, c, num = que.popleft()
+        if r == r2 and c == c2:
+            return num
 
         for dx, dy in zip(dxs, dys):
             nx = r + dx; ny = c + dy
 
-            if nx == r2 and ny == c2:
-                return num + 1
 
             if is_range(nx,ny) and visited[nx][ny] == -1:
                 que.append((nx,ny,num+1))
