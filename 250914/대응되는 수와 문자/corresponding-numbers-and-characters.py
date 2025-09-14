@@ -6,7 +6,7 @@ queries = [input() for _ in range(m)]
 
 # Please write your code here.
 for q in queries:
-    if q in words:
-        print(words.index(q))
-    else:
+    if q.isdigit():
         print(words[int(q)])
+    else:
+        print(words.index(q))
