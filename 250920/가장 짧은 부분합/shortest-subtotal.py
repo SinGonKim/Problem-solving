@@ -14,4 +14,7 @@ for i in range(n):
     if j<n and sum_val+arr[j] >=s:
         ans = min(ans,j-i+1)
     sum_val -= arr[i]
-print(ans)
+if ans == sys.maxsize:
+    print(-1)
+else:
+    print(ans)
