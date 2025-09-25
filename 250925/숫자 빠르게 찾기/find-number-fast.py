@@ -14,11 +14,8 @@ for querry in queries:
             right = mid - 1
         else:
             print(mid+1)
-            left = mid
-            right = n-1
             break
     else:
         print(-1)
-        left = 0
-        right = n - 1
-    
+    left = 0
+    right = n - 1
