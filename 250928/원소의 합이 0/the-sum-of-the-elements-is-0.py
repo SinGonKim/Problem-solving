@@ -18,9 +18,10 @@ for i in range(n):
             dic2[num[2][i] + num[3][j]] = 1
         else:
             dic2[num[2][i] + num[3][j]] += 1
-for i in range(n):
-    for j in range(n):
-        diff = -num[0][i] - num[1][j]
-        if diff in dic2:
-            cnt += dic[-diff] * dic2[diff]
+
+for key, value in dic.items():
+    for key1, value1 in dic2.items():
+        if key + key1 == 0:
+            cnt += value*value1
+
 print(cnt) 
