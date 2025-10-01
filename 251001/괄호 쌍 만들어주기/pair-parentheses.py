@@ -1,20 +1,14 @@
 A = input()
 
 # Please write your code here.
-L = [0 for _ in range(len(A)+1)]
-R = [0 for _ in range(len(A)+1)]
+n = len(A)
+count = 0
 
-for i in range(len(A)):
-    if A[i] == '(':
-        L[i+1] = L[i] + 1
-    else:
-        L[i+1] = L[i]
-for i in range(len(A)-1,-1,-1):
-    if A[i] == ')':
-        R[i] = R[i+1] + 1
-    else:
-        R[i] = R[i+1]
-answer = 0
-for i in range(1,len(A)):
-    answer = max(answer, min(L[i],R[i]))
-print(answer)
+# 모든 가능한 '((' 위치를 찾기
+for i in range(n - 1):
+    if A[i] == '(' and A[i + 1] == '(':
+        # 이 '((' 뒤에 있는 모든 '))'를 찾기
+        for j in range(i + 2, n - 1):
+            if A[j] == ')' and A[j + 1] == ')':
+                count += 1
+print(count)
