@@ -2,7 +2,8 @@ n = int(input())
 edges = [tuple(map(int, input().split())) for _ in range(n - 1)]
 
 # Please write your code here.
-parents = [0 for _ in range(n+1)]
+from collections import defaultdict
+parents = defaultdict(int)
 
 for edge in edges:
     parents[edge[1]] = edge[0]
