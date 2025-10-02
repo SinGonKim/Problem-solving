@@ -10,7 +10,6 @@ n = int(input())
 edges = [[] for _ in range(n+1)]
 visited = [False for _ in range(n+1)]
 
-parents = [0 for _ in range(n+1)]
 
 for _ in range(n-1):
     x, y, w = map(int, input().split())
@@ -25,22 +24,22 @@ def clear():
 def dfs(x, length):
     global max_len, max_len_point
 
-    if not visited[x]:
-        visited[x] = True
+    if (max_len < length):
+        max_len = length
+        max_len_point = x
 
-        if (max_len < length):
-            max_len = length
-            max_len_point = x
-
-        for y, w in edges[x]:
+    for y, w in edges[x]:
+        if not visited[y]:
+            visited[y] = True
             dfs(y, length+w)
 
 max_len = 0
 max_len_point = 0
+visited[1] = True
 dfs(1,0)
 
 clear()
-
+visited[max_len_point] = True
 dfs(max_len_point, 0)
 
 print(max_len)
