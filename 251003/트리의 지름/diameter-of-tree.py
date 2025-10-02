@@ -1,7 +1,7 @@
 
 import sys
 
-sys.setrecursionlimit(10**5+1)
+sys.setrecursionlimit(10**6+1)
 
 input = sys.stdin.readline
 
