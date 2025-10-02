@@ -3,21 +3,19 @@ arr = list(map(int, input().split()))
 querry = list(map(int, input().split()))
 
 # Please write your code here.
-left = 0
+import bisect
 for q in querry:
-    tmp = left
+    left = 0
     right = n-1
     while left <= right:
         if q < arr[left] or arr[right]<q:
             print(-1)
-            left = tmp
             break
         mid = (left+right)//2
 
         if q == arr[mid]:
-            while q == arr[mid]:
-                mid -= 1
-            print(mid + 2)
+            idx = bisect.bisect_left(arr,mid)
+            print(idx+1)
             break
         
         elif q > arr[mid]:
@@ -26,4 +24,3 @@ for q in querry:
             right = mid - 1
     else:
         print(-1)
-        left = tmp
