@@ -5,10 +5,12 @@ querry = list(map(int, input().split()))
 # Please write your code here.
 left = 0
 for q in querry:
+    tmp = left
     right = n-1
     while left <= right:
         if q < arr[left] or arr[right]<q:
             print(-1)
+            left = tmp
             break
         mid = (left+right)//2
 
@@ -24,4 +26,4 @@ for q in querry:
             right = mid - 1
     else:
         print(-1)
-    
+        left = tmp
