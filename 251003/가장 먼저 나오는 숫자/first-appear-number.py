@@ -3,9 +3,8 @@ arr = list(map(int, input().split()))
 querry = list(map(int, input().split()))
 
 # Please write your code here.
-
+left = 0
 for q in querry:
-    left = 0
     right = n-1
     while left <= right:
         if q < arr[left] or arr[right]<q:
