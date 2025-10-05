@@ -6,7 +6,7 @@ b = list(map(int, input().split()))
 
 # Please write your code here.
 for i in range(m):
-    if b[i] in set(a):
+    if b[i] in a:
         print(1)
     else:
         print(0)
