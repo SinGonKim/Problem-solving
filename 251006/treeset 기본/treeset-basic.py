@@ -5,7 +5,8 @@ for _ in range(n):
     line = input().split()
     com = line[0]
     if com == 'add':
-        s.add(line[1])
+        if not line[1] in s:
+            s.add(line[1])
     elif com == 'remove':
         s.remove(line[1])
     elif com == 'find':
