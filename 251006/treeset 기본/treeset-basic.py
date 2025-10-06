@@ -5,23 +5,22 @@ for _ in range(n):
     line = input().split()
     com = line[0]
     if com == 'add':
-        if not line[1] in s:
-            s.add(line[1])
+        s.add(int(line[1]))  # 정수로 변환!
     elif com == 'remove':
-        s.remove(line[1])
+        s.remove(int(line[1]))  # 정수로 변환!
     elif com == 'find':
-        if line[1] in s:
+        if int(line[1]) in s:  # 정수로 변환!
             print('true')
         else:
             print('false')
     elif com == 'lower_bound':
-        idx = s.bisect_left(line[1])
+        idx = s.bisect_left(int(line[1]))  # 정수로 변환!
         if idx < len(s):
             print(s[idx])
         else:
             print("None")
     elif com == 'upper_bound':
-        idx = s.bisect_right(line[1])
+        idx = s.bisect_right(int(line[1]))  # 정수로 변환!
         if idx < len(s):
             print(s[idx])
         else:
