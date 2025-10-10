@@ -1,21 +1,18 @@
 n, k = map(int, input().split())
-bomb = []
+arr = [int(input()) for _ in range(n)]
 
-for i in range(n):
-    bomb_num = int(input())
-    bomb.append((bomb_num, i))
+R = [0 for _ in range(n)]
+
+latest_index = dict()
+for i in range(n-1,-1,-1):
+    if arr[i] not in latest_index:
+        R[i] = -1
+    else:
+        R[i] = latest_index[arr[i]]
+    latest_index[arr[i]] = i
 
 answer = -1
-
-# 내림차순 정렬 (폭탄 번호 기준)
-bomb.sort(reverse=True)
-
-for i in range(1, len(bomb)):
-    bomb_num = bomb[i][0]
-    if bomb[i-1][0] == bomb_num:
-        dist = bomb[i-1][1] - bomb[i][1]
-        if dist <= k:
-            answer = bomb_num
-            break
-
+for i in range(n):
+    if R[i] != -1 and R[i] - i <= k:
+        answer = max(answer, arr[i])
 print(answer)
