@@ -45,7 +45,7 @@ for i in range(n - k):
 bombs_about_to_blow_up.sort()
 
 if not bombs_about_to_blow_up:
-    print(0)
+    print(-1)
 else:
     bomb_nums, bomb_num = bombs_about_to_blow_up[-1]
     print(bomb_num)
