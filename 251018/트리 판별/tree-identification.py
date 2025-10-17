@@ -26,12 +26,21 @@ que.append(root)
 visited = [0 for _ in range(10001)]
 visited[root] = 1
 
+is_tree = True
 while que:
     idx = que.popleft()
+    # print(idx)
     for nx in graph[idx]:
         if visited[nx]:
-            print(0)
-            exit()
+            is_tree = False
+            continue
         visited[nx] = 1
         que.append(nx)
-print(1)
+
+for node in range(1,10001):
+    if used[node] == True and visited[node] == 0:
+        is_tree= False
+if is_tree:
+    print(1)
+else:
+    print(0)
