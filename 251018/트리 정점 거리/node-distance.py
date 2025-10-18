@@ -1,3 +1,5 @@
+import sys
+sys.setrecursionlimit(10**5)
 n, m = map(int, input().split())
 
 edges = [tuple(map(int, input().split())) for _ in range(n - 1)]
@@ -13,22 +15,25 @@ for edge in edges:
 
 
 visited= [-1 for _ in range(n+1)]
-
+dist = [[0 for _ in range(n+1)] for _ in range(n+1)]
 
 def dfs(s,e):
     
-    if s == e:
-        return
-    
-    for nx, d in graph[s]:
+    for nx, d in graph[e]:
         if visited[nx] == -1:
-            visited[nx] = visited[s] + d
-            dfs(nx,e)
+            visited[nx] = 1
+            dist[s][nx] = dist[s][e] + d
+            dfs(s,nx)
     return
+
+
+for i in range(1,n+1):
+    for j in range(1,n+1):
+        visited[j] = -1
+    visited[i] = 1
+    dfs(i,i)
+
 
 for query in queries:
     x, y = query[0], query[1]
-    visited[x] = 0
-    dfs(x,y)
-    print(visited[y])
-    visited= [-1 for _ in range(n+1)]
+    print(dist[x][y])
