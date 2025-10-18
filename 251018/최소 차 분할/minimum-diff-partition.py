@@ -15,5 +15,6 @@ for i in range(n):
             dp[j] = 1
 ans = INT_MAX
 for i in range(1,s+1):
-    ans = min(ans, abs(s-2*i))
+    if dp[i]:
+        ans = min(ans, abs(s-2*i))
 print(ans)
