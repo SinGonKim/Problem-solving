@@ -26,7 +26,7 @@ def union(x,y):
 for edge in edges:
     union(edge[0], edge[1])
 
-for i in range(1,k-1):
+for i in range(k-1):
     if parent[path[i]] != parent[path[i+1]]:
         print(0)
         break
