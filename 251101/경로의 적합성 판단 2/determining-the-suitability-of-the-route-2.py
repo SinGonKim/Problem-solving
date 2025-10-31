@@ -16,8 +16,8 @@ def find(x):
 
 
 def union(x,y):
-    x = find(parent[x])
-    y = find(parent[y])
+    x = find(x)
+    y = find(y)
 
     if x > y:
         x, y = y, x
