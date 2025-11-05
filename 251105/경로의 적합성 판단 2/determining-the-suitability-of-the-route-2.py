@@ -1,58 +1,55 @@
 import sys
-from collections import defaultdict, deque
-
-# 입력 속도를 위해 sys.stdin.readline 사용
+# 재귀 깊이 제한을 늘려줍니다. (Union-Find의 find 연산 때문)
+sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
-sys.setrecursionlimit(10**6) 
+
+# find 연산 (경로 압축 적용)
+def find_parent(parent, x):
+    if parent[x] == x:
+        return x
+    # 재귀적으로 부모를 찾으면서, 찾은 루트로 부모를 갱신 (경로 압축)
+    parent[x] = find_parent(parent, parent[x])
+    return parent[x]
+
+# union 연산 (두 원소가 속한 집합 합치기)
+def union_parent(parent, a, b):
+    rootA = find_parent(parent, a)
+    rootB = find_parent(parent, b)
+    
+    if rootA < rootB:
+        parent[rootB] = rootA
+    else:
+        parent[rootA] = rootB
 
 def solve():
-    # 입력 받기
     n, m, k = map(int, input().split())
     
-    # 그래프 구성 (인접 리스트)
-    graph = defaultdict(list)
+    # 1. 부모 테이블 초기화
+    parent = [i for i in range(n + 1)]
+    
+    # 2. 모든 간선에 대해 union 연산 수행 (그래프의 연결 요소 구성)
     for _ in range(m):
         u, v = map(int, input().split())
-        graph[u].append(v)
-        graph[v].append(u)
-    
+        union_parent(parent, u, v)
+        
     order = list(map(int, input().split()))
     
-    current_node = order[0]
-    
-    # 1부터 k-1까지 (다음 목적지)
-    for i in range(1, k):
-        target_node = order[i]
+    # k=1 이면 항상 가능
+    if k == 1:
+        print(1)
+        return
+
+    # 3. order 순서대로 연결성 확인
+    for i in range(k - 1):
+        current_node = order[i]
+        next_node = order[i+1]
         
-        # current_node에서 target_node로 가는 경로가 있는지
-        # '이번 탐색'에서만 사용할 visited 셋
-        visited_segment = {current_node}
-        q = deque([current_node])
-        found = False
-        
-        while q:
-            node = q.popleft()
-            
-            # 목적지 도달!
-            if node == target_node:
-                found = True
-                break
-                
-            for neighbor in graph[node]:
-                # 이번 탐색에서 방문한 적이 없다면
-                if neighbor not in visited_segment:
-                    visited_segment.add(neighbor)
-                    q.append(neighbor)
-        
-        # 큐가 비었는데도 못 찾았다면 (경로가 없다면)
-        if not found:
-            print(0)
+        # 4. 두 노드의 루트(최상위 부모)가 다른지 확인
+        if find_parent(parent, current_node) != find_parent(parent, next_node):
+            print(0)  # 연결되어 있지 않음 (이동 불가)
             return
             
-        # 찾았다면, 다음 탐색을 위해 현재 위치를 갱신
-        current_node = target_node
-
-    # 모든 순서를 통과했다면
+    # 5. 모든 순서가 연결되어 있음
     print(1)
 
 if __name__ == "__main__":
