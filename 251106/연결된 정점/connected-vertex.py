@@ -9,6 +9,7 @@ for i in range(1,n+1):
 def find(x):
     if x == parents[x]:
         return x
+    parents[x] = find(parents[x])
     return parents[x]
 
 def union(a,b):
@@ -29,6 +30,7 @@ for _ in range(m):
         union(a,b)
     else:
         a = int(nums[0])
-        print(H[parents[a]])
+        root_a = find(a)
+        print(H[root_a])
 
 # Please write your code here.
