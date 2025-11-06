@@ -29,6 +29,6 @@ for _ in range(m):
         union(a,b)
     else:
         a = int(nums[0])
-        print(H[a])
+        print(H[parents[a]])
 
 # Please write your code here.
