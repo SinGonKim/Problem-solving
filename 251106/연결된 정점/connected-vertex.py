@@ -19,6 +19,7 @@ def union(a,b):
     
     if a != b:
         H[a] += H[parents[b]]
+        H[parents[b]] = 0
         parents[b] = a
 
 for _ in range(m):
