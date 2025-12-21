@@ -23,10 +23,11 @@ class bit_calculator:
         print((self.S>>num)&1)
     
     def toggle(self, num):
-        if (self.S>>num)%2:
-            self.delete(num)
-        else:
-            self.add(num)
+        self.S ^= 1<<num
+        # if (self.S>>num)%2:
+        #     self.delete(num)
+        # else:
+        #     self.add(num)
     
     def clear(self):
         self.S = 0
