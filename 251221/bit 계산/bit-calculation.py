@@ -20,7 +20,7 @@ class bit_calculator:
         self.S &= ~(1<<num)
     
     def printing(self, num):
-        print((self.S>>num)%2)
+        print((self.S>>num)&1)
     
     def toggle(self, num):
         if (self.S>>num)%2:
