@@ -14,11 +14,10 @@ class bit_calculator:
         self.S = 0
     
     def add(self, num):
-        self.S = self.S + (1<<num)
+        self.S |= (1<<num)
     
     def delete(self,num):
-        if (self.S>>num)%2:
-            self.S = self.S^(1<<com[1])
+        self.S &= ~(1<<num)
     
     def printing(self, num):
         print((self.S>>num)%2)
