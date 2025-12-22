@@ -3,13 +3,18 @@ n, m = map(int, input().split())
 grid = [list(map(int, input().split())) for _ in range(n)]
 answer = (-1,-1)
 # Please write your code here.
-S = set()
-for g in grid:
-    for x in g:
-        S.add(x-1)
-        S.add(x)
-S.discard(0)
-S = sorted(list(S))
+import sys
+min_value = sys.maxsize
+max_value = -1
+
+for g_row in grid:
+    for g in g_row:
+        if g < min_value:
+            min_value = g
+        if g > max_value:
+            max_value = g
+S = [i for i in range(min_value, max_value+1)]
+
 
 
 def change_to_zero_less_k(k):
