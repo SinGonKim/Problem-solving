@@ -13,7 +13,7 @@ for g_row in grid:
             min_value = g
         if g > max_value:
             max_value = g
-S = [i for i in range(min_value, max_value+1)]
+S = [i for i in range(max(1,min_value-1), max_value+1)]
 
 
 
