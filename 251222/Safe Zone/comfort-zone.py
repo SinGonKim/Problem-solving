@@ -42,7 +42,7 @@ for k in S:
                 dfs(i,j)
                 cnt += 1
 
-    if answer[0] < cnt:
-        answer = (cnt, k)
+    if answer[1] < cnt:
+        answer = (k, cnt)
 print(*answer)
 
