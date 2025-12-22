@@ -1,7 +1,7 @@
 from copy import deepcopy
 n, m = map(int, input().split())
 grid = [list(map(int, input().split())) for _ in range(n)]
-answer = (0,0)
+answer = (-1,-1)
 # Please write your code here.
 S = set()
 for g in grid:
