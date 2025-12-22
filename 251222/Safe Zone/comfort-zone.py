@@ -5,7 +5,9 @@ answer = (-1,-1)
 # Please write your code here.
 S = set()
 for g in grid:
-    S |= set(g)
+    for x in g:
+        S.add(x-1)
+S.discard(0)
 S = sorted(list(S))
 
 
@@ -42,7 +44,7 @@ for k in S:
                 dfs(i,j)
                 cnt += 1
 
-    if answer[1] < cnt:
+    if answer[1] <= cnt:
         answer = (k, cnt)
 print(*answer)
 
