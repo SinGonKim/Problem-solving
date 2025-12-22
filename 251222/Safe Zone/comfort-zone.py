@@ -7,6 +7,7 @@ S = set()
 for g in grid:
     for x in g:
         S.add(x-1)
+        S.add(x)
 S.discard(0)
 S = sorted(list(S))
 
