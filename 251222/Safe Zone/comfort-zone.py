@@ -4,6 +4,7 @@ grid = [list(map(int, input().split())) for _ in range(n)]
 answer = (-1,-1)
 # Please write your code here.
 import sys
+sys.setrecursionlimit(10**5+1)
 min_value = sys.maxsize
 max_value = -1
 
