@@ -3,18 +3,14 @@ arr = list(map(int, input().split()))
 
 # Please write your code here.
 
-cur = -1
+cur = 0
 cnt = 0
-for i in range(n):
-    if i - m <= cur or arr[i-m] == 0: continue
-    cur = i + m
+while cur < n:
+    if arr[cur] == 0:
+        cur += 1
+        continue
+    cur = min(cur + 2*m + 1, n)
     cnt += 1
-    if cur >= n-1:break
-else:
-    for k in range(cur+1,n):
-        if arr[k]:
-            cnt += 1
-            break
-    else:
-        cnt = 0
+    if cur != n and arr[cur] == 0:
+        cur += 1
 print(cnt)
