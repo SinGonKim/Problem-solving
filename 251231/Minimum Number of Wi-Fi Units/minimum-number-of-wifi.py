@@ -9,7 +9,12 @@ for i in range(n):
     if i - m <= cur or arr[i-m] == 0: continue
     cur = i + m
     cnt += 1
-    if cur >= n:break
+    if cur >= n-1:break
 else:
-    cnt = 1
+    for k in range(cur+1,n):
+        if arr[k]:
+            cnt += 1
+            break
+    else:
+        cnt = 1
 print(cnt)
