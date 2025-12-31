@@ -10,4 +10,6 @@ for i in range(n):
     cur = i + m
     cnt += 1
     if cur >= n:break
+else:
+    cnt = 1
 print(cnt)
