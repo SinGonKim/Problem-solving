@@ -16,5 +16,5 @@ else:
             cnt += 1
             break
     else:
-        cnt = 1
+        cnt = 0
 print(cnt)
