@@ -5,24 +5,25 @@ s = input().strip()
 p = input().strip()
 
 n, m = len(s), len(p)
+dp = [[False] * (m + 1) for _ in range(n + 2)]
+s = " " + s
+p = " " + p
 
-# dp[i][j]는 s[i:]와 p[j:]가 매칭되는지 여부를 저장
-dp = [[False] * (m + 1) for _ in range(n + 1)]
+dp[0][0] = True
 
-# 베이스 케이스: 빈 문자열과 빈 패턴은 일치함
-dp[n][m] = True
+for j in range(m):
+    for i in range(n+1):
+        if not dp[i][j]: continue
 
-for i in range(n, -1, -1):
-    for j in range(m-1, -1, -1):
-        first_match = (i<n) and (s[i] == p[j] or p[j] == '.')
+        if j != m - 1 and p[j+2] == "*":
+            dp[i][j+2] = True
 
-        if j + 1 < m and p[j+1] == '*':
-            dp[i][j] = dp[i][j+2] or (first_match and dp[i+1][j])
+            for curi in range(i+1,n+1):
+                if p[j+1] != '.' and s[curi] != p[j+1]:break
+                dp[curi][j+2] = True
+        elif p[j+1] == '.':
+            dp[i+1][j+1] = True
         else:
-            dp[i][j] = first_match and dp[i+1][j+1]
-
-# 결과 출력
-if dp[0][0]:
-    print("true")
-else:
-    print("false")
+            if i != n and s[i+1] == p[j+1]:
+                dp[i+1][j+1] = True
+print('true' if dp[n][m] else 'false')
