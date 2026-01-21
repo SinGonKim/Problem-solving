@@ -1,18 +1,27 @@
-MAX_INDEX = 4000001
+MAX_INDEX = 4_000_001
 n, k = map(int, input().split())
-a = [0 for _ in range(MAX_INDEX)]
+candies = [(-1,-1)]
 for _ in range(n):
-    c, p = map(int, input().split())
-    a[p] += c
+    cnt, x = tuple(map(int, input().split()))
+    candies.append((x,cnt))
 
-ps = [0 for _ in range(MAX_INDEX)]
-for i in range(MAX_INDEX):
-    ps[i] = a[i]
-    if i:
-        ps[i] += ps[i-1]
+def get_pos_of_candy(candy_idx):
+    x, _ = candies[candy_idx]
+    return x
 
-ans = ps[2*k]
-for i in range(k + 1, MAX_INDEX - k):
-    ans = max(ans, ps[i + k] - ps[i - k - 1])
+def get_num_of_candy(candy_idx):
+    _ ,cnt = candies[candy_idx]
+    return cnt
 
+candies.sort()
+ans = 0
+total_nums = 0
+j = 0
+for i in range(1,n + 1):
+    while j + 1 <= n and get_pos_of_candy(j+1) - get_pos_of_candy(i) <= 2*k:
+        total_nums += get_num_of_candy(j+1)
+        j += 1
+    ans = max(ans, total_nums)
+
+    total_nums -= get_num_of_candy(i)
 print(ans)
