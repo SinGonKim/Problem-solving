@@ -1,0 +1,48 @@
+n, m = map(int, input().split())
+
+# Please write your code here.
+board = []
+idx = 2
+for r in range(n):
+    board.append(list(map(int, input().split())))
+    idx += m
+
+# Directions for toggling: self, up, down, left, right
+dr = [0, 0, 0, 1, -1]
+dc = [0, 1, -1, 0, 0]
+
+def toggle(temp_board, r, c):
+    for i in range(5):
+        nr, nc = r + dr[i], c + dc[i]
+        if 0 <= nr < n and 0 <= nc < m:
+            temp_board[nr][nc] = 1 - temp_board[nr][nc]
+
+min_clicks = float('inf')
+
+# Iterate through all 2^m possibilities for the first row
+for mask in range(1 << m):
+    temp_board = [row[:] for row in board]
+    current_clicks = 0
+    
+    # Step 1: Apply clicks to the first row based on the bitmask
+    for j in range(m):
+        if (mask >> j) & 1:
+            toggle(temp_board, 0, j)
+            current_clicks += 1
+    
+    # Step 2: For rows 0 to n-2, if a cell is 0, click the cell below it
+    for i in range(n - 1):
+        for j in range(m):
+            if temp_board[i][j] == 0:
+                toggle(temp_board, i + 1, j)
+                current_clicks += 1
+    
+    # Step 3: Check if the last row is all 1s
+    if all(val == 1 for val in temp_board[n-1]):
+        min_clicks = min(min_clicks, current_clicks)
+
+# Output the result
+if min_clicks == float('inf'):
+    print(-1)
+else:
+    print(min_clicks)
