@@ -1,5 +1,4 @@
-
-min_clicks = float('inf')
+import copy
 
 def toggle(temp_board, r, c): # 주변 숫자 스위칭
     
@@ -14,9 +13,10 @@ def toggle(temp_board, r, c): # 주변 숫자 스위칭
 
 
 def main():
+    min_clicks = float('inf')
     # Iterate through all 2^m possibilities for the first row
     for mask in range(1 << m):
-        temp_board = [row for row in board]
+        temp_board = copy.deepcopy([row for row in board])
         current_clicks = 0
         
         # Step 1: Apply clicks to the first row based on the bitmask
@@ -26,14 +26,14 @@ def main():
                 current_clicks += 1
         
         # Step 2: For rows 0 to n-2, if a cell is 0, click the cell below it
-        for i in range(n - 1):
+        for i in range(n-1):
             for j in range(m):
                 if temp_board[i][j] == 0:
-                    toggle(temp_board, i + 1, j)
+                    toggle(temp_board, i + 1 , j)
                     current_clicks += 1
         
         # Step 3: Check if the last row is all 1s
-        if all(val == 1 for val in temp_board[n-1]):
+        if all(val == 1 for val in temp_board[-1]):
             min_clicks = min(min_clicks, current_clicks)
 
     # Output the result
