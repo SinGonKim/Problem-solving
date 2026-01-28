@@ -12,7 +12,7 @@ dp[0][0][0] = 0
 for i in range(1,N+1):
     num = numbers[i-1]
     for j in range(M+1):
-        dp[i][j][0] = max(dp[i][j][0], dp[i-1][j][1])
+        dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1])
         if j == 0: continue #숫자선택안했으므
         res_extend = dp[i-1][j][1] + num
         res_new = dp[i-1][j-1][0] + num
