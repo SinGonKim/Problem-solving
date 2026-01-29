@@ -1,12 +1,15 @@
 import sys
 
-# 입력을 효율적으로 읽기 위해 sys.stdin.read 사용
 def solve():
     T_cases = int(input())
     
     # 평면 좌표계 기준 방향 매핑 (U: y증가, D: y감소, L: x감소, R: x증가)
-    dxs = {'U': 0, 'D': 0, 'L': -1, 'R': 1}
-    dys = {'U': 1, 'D': -1, 'L': 0, 'R': 0}
+    d_map = {
+        'U': (0, 1),
+        'D': (0, -1),
+        'L': (-1, 0),
+        'R': (1, 0)
+    }
 
     for _ in range(T_cases):
         N = int(input())
@@ -16,47 +19,47 @@ def solve():
             cli = input().split()
             xi, yi, wi = map(int, cli[:-1])
             di = cli[-1]
-            # 1. 좌표 2배 확장 (0.5초 단위 충돌을 정수 단위로 계산 가능하게 함)
-            balls.append({'w': wi, 'id': i, 'x': xi * 2, 'y': yi * 2, 'd': di})
+            # 좌표 2배 확장 (0.5초 단위 충돌을 정수 단위로 계산 가능하게 함)
+            balls.append([wi, i, xi * 2 + 2000, yi * 2 + 2000, di])
+        balls.sort(key=lambda x: (-x[0], -x[1]))
 
         last_collision_time = -1
-        
-        # 시뮬레이션: 최대 거리가 4000이므로 4000초면 모든 충돌 가능성이 종료됨
-        for t in range(0, 4001):
+    
+        # 최대 4000초 시뮬레이션 (좌표 범위 0~4000 내에서 모든 충돌 완료)
+        for t in range(1, 4001):
             if len(balls) <= 1:
                 break
             
-            # t=0일 때는 이동하지 않고 현재 위치에서 충돌 확인, 그 외엔 이동 후 확인
-            if t > 0:
-                for b in balls:
-                    b['x'] += dxs[b['d']]
-                    b['y'] += dys[b['d']]
-            
-            # 위치별 구슬 모으기 (딕셔너리 사용하여 시간 단축)
-            pos_dict = {}
-            for b in balls:
-                p = (b['x'], b['y'])
-                if p not in pos_dict:
-                    pos_dict[p] = []
-                pos_dict[p].append(b)
-            
+            new_pos_dict = {}
             collision_occurred = False
-            next_generation = []
+            survivors = []
             
-            for p in pos_dict:
-                group = pos_dict[p]
-                if len(group) > 1:
-                    collision_occurred = True
-                    # 영향력 규칙: 무게 내림차순 -> 번호(id) 내림차순 정렬
-                    group.sort(key=lambda x: (-x['w'], -x['id']))
-                    next_generation.append(group[0]) # 가장 영향력 큰 구슬만 생존
+            # 각 구슬 이동 및 충돌 체크
+            for b in balls:
+                dx, dy = d_map[b[4]]
+                b[2] += dx # nx
+                b[3] += dy # ny
+                
+                # 범위를 완전히 벗어난 구슬은 다시 돌아올 수 없으므로 제거 대상 (벽이 없기 때문)
+                if not (0 <= b[2] <= 4000 and 0 <= b[3] <= 4000):
+                    continue
+                
+                pos = (b[2], b[3])
+                if pos not in new_pos_dict:
+                    new_pos_dict[pos] = b
+                    survivors.append(b)
                 else:
-                    next_generation.append(group[0])
+                    # 이미 누군가 좌표를 선점함 = 충돌 발생
+                    collision_occurred = True
+                    # 선점한 구슬이 더 강하므로 현재 구슬은 survivors에 추가하지 않음
             
-            balls = next_generation
+            # 다음 턴의 구슬 목록 갱신
+            balls = survivors
+            
             if collision_occurred:
                 last_collision_time = t
-        
+
+        # 결과 출력 (충돌이 한 번도 없었다면 초기값 -1 출력)
         print(last_collision_time)
 
 if __name__ == "__main__":
