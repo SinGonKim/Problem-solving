@@ -1,31 +1,27 @@
 import sys
-sys.setrecursionlimit(10*6)
+sys.setrecursionlimit(10*8)
 s = input()
 t = input()
 
-# Please write your code here.
-len_s = len(s)
-len_t = len(t)
+n = len(s)
+m = len(t)
 
-dp = [[len_s + len_t for _ in range(len_t + 1)] for _ in range(len_s+1)]
+# dp[i][j]는 s의 i번째, t의 j번째까지 고려했을 때의 최단 공통 상위수열의 길이
+dp = [[0] * (m + 1) for _ in range(n + 1)]
 
-def recursive(s_n, t_n):
-    global dp
-    ls = len(s_n)
-    lt = len(t_n)
-    if ls == 0 or lt == 0:
-        dp[0][0] = min(dp[0][0], dp[ls][lt] + ls + lt)
-        return
-    
-    if s_n[-1] == t_n[-1]:
-        dp[ls-1][lt-1] = min(dp[ls-1][lt-1], dp[ls][lt] + 1)
-        recursive(s_n[:-1], t_n[:-1])
-    else:
-        dp[ls-1][lt] = min(dp[ls-1][lt], dp[ls][lt] + 1)
-        recursive(s_n[:-1], t_n)
-        dp[ls][lt-1] = min(dp[ls][lt-1], dp[ls][lt] + 1)
-        recursive(s_n, t_n[:-1])
+# 초기 조건 설정
+for i in range(n + 1):
+    dp[i][0] = i  # t가 빈 문자열이면 s의 모든 문자를 추가해야 함
+for j in range(m + 1):
+    dp[0][j] = j  # s가 빈 문자열이면 t의 모든 문자를 추가해야 함
 
-dp[len_s][len_t] = 0
-recursive(s,t)
-print(dp[0][0])
+for i in range(1, n + 1):
+    for j in range(1, m + 1):
+        if s[i-1] == t[j-1]:
+            # 두 문자가 같으면 공통으로 한 번만 카운트하고 대각선에서 +1
+            dp[i][j] = dp[i-1][j-1] + 1
+        else:
+            # 다르면 s에서 하나를 가져오거나 t에서 하나를 가져오는 것 중 최소값 + 1
+            dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + 1
+
+print(dp[n][m])
