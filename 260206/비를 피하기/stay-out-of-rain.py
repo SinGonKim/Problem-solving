@@ -1,46 +1,37 @@
 from collections import deque
-
 n, h, m = map(int, input().split())
 grid = [list(map(int, input().split())) for _ in range(n)]
 
 # Please write your code here.
-people = []
-for row in range(len(grid)):
-    for col in range(len(grid[0])):
-        if grid[row][col] == 2:
-            people.append((row,col))
-answers = [[0 for _ in range(n)] for _ in range(n)]
 
-def is_range(x,y):
+def is_range(x, y):
     return 0<=x<n and 0<=y<n
 
-def bfs(p:tuple):
+
+def bfs():
+    stops = [(i,j,0) for i in range(n) for j in range(n) if grid[i][j] == 3]
+    que = deque(stops)
     dxs = [-1, 1, 0, 0]
     dys = [0, 0, -1, 1]
-
-    que = deque()
-    p_row, p_col = p
-    que.append((p_row, p_col, 0))
-    visited = [[False for _ in range(n)] for _ in range(n)]
-    visited[p_row][p_col] = 1
-
+    visited = [[-1 for _ in range(n)] for _ in range(n)]
+    for stop in stops:
+        x, y, cnt = stop
+        visited[x][y] = 0
+    
     while que:
         x, y, cnt = que.popleft()
+
         for dx, dy in zip(dxs, dys):
             nx = x + dx; ny = y + dy
-            if is_range(nx,ny) and grid[nx][ny] != 1 and not visited[nx][ny]:
-                visited[nx][ny] = True
-                if grid[nx][ny] == 3:
-                    return cnt + 1
-                else:
-                    que.append((nx, ny, cnt + 1))
-    return -1
+            if is_range(nx, ny) and grid[nx][ny] != 1 and visited[nx][ny] == -1:
+                visited[nx][ny] = cnt + 1
+                que.append((nx,ny,cnt+1))
 
-
-
-for person in people:
-    answer = bfs(person)
-    answers[person[0]][person[1]] = answer
-
-for ans in answers:
-    print(*ans)
+    for i in range(n):
+        for j in range(n):
+            if grid[i][j] == 2:
+                print(visited[i][j], end = ' ')
+            else:
+                print(0, end = ' ')
+        print()
+bfs()
