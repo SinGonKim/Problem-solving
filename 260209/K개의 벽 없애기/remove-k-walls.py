@@ -20,8 +20,8 @@ def bfs():
     dys = [0, 0, -1, 1]
     que = deque()
     que.append((r1,c1,k,0))
-    visited = [[-1 for _ in range(n)] for _ in range(n)]
-    visited[r1][c1] = 0
+    visited = [[[-1]*(k+1) for _ in range(n)] for _ in range(n)]
+    visited[r1][c1][k] = 0
 
     while que:
         x, y, num, cnt = que.popleft()
@@ -32,14 +32,16 @@ def bfs():
         
         for dx, dy in zip(dxs, dys):
             nx = x + dx; ny = y + dy
-            if is_range(nx,ny) and visited[nx][ny] == -1:
-                if grid[nx][ny] == 0:
-                    visited[nx][ny] = cnt + 1
+            if is_range(nx,ny):
+                if grid[nx][ny] == 0 and visited[nx][ny][num] == -1:
+                    visited[nx][ny][num] = cnt + 1
                     que.append((nx, ny, num, cnt + 1))
-                elif num > 0:
-                    visited[nx][ny] = cnt + 1
+                elif num > 0 and visited[nx][ny][num-1] == -1:
+                    visited[nx][ny][num-1] = cnt + 1
                     que.append((nx,ny,num-1, cnt+1))
+
     return -1
 
 ans = bfs()
+
 print(ans)
