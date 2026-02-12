@@ -8,10 +8,10 @@ dp = [[[-1, -1, -1, -1] for _ in range(M+1)] for _ in range(N+1)]
 
 def initilize():
     for num in range(4):
-        if num == a[1]:
-            dp[1][M][num-1] = 1
+        if num == a[1] - 1:
+            dp[1][M][num] = 1
         else:
-            dp[1][M][num-1] = 0
+            dp[1][M][num] = 0
 
 initilize()
 
