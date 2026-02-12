@@ -15,24 +15,18 @@ def initilize():
 
 initilize()
 
-for i in range(2,N+1):
+for i in range(2,N+1): # O(500*100*4*4*2)
     cur_str = a[i] - 1
     for m in range(M, -1, -1):
         for prev_num in range(4):
             if dp[i-1][m][prev_num] == -1: continue
             # CASE
             for cur_num in range(4):
-                # cur_num == prev_num
+                score = 1 if cur_str == cur_num else 0
                 if cur_num == prev_num: # 인접한 두 숫자가 같음
-                    if cur_num == cur_str: # 유사도 증가
-                        dp[i][m][cur_num] = max(dp[i][m][cur_num], dp[i-1][m][prev_num] + 1)
-                    else: # 유사도 변동 X
-                        dp[i][m][cur_num] = max(dp[i][m][cur_num], dp[i-1][m][prev_num])
+                    dp[i][m][cur_num] = max(dp[i][m][cur_num], dp[i-1][m][prev_num] + score)
                 elif m > 0: # 인접한 두 숫자가 다름. 숫자가 바뀜
-                    if cur_num == cur_str: # 유사도 증가
-                        dp[i][m-1][cur_num] = max(dp[i][m-1][cur_num], dp[i-1][m][prev_num] + 1)
-                    else:
-                        dp[i][m-1][cur_num] = max(dp[i][m-1][cur_num], dp[i-1][m][prev_num])
+                    dp[i][m-1][cur_num] = max(dp[i][m-1][cur_num], dp[i-1][m][prev_num] + score)
 
 ans = 0
 for m in range(M+1):
