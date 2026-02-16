@@ -1,5 +1,5 @@
 import sys
-sys.setrecursion.limit(10*6)
+sys.setrecursionlimit(10*6)
 def is_possible(sequence):
     """
     현재 수열이 가능한 수열인지 확인합니다.
