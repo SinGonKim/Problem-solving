@@ -2,8 +2,9 @@
 # Please write your code here.
 
 def solution(num, cnt):
+    global answer
     if cnt == 0:
-        print(num)
+        answer.append(num)
         return
     
     for c in ["4", "5", "6"]:
@@ -13,10 +14,11 @@ def solution(num, cnt):
                 break
         else:
             solution(candidate, cnt-1)
-            break
 
     
 
 if __name__ == "__main__":
     n = int(input())
+    answer = []
     solution("4", n-1)
+    print(answer[0])
