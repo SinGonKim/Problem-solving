@@ -3,7 +3,7 @@ points = [tuple(map(int, input().split())) for _ in range(n)]
 
 # Please write your code here.
 import sys
-sys.serrecursionlimit(10**6)
+sys.setrecursionlimit(10**6)
 def solution(idx:int, cnt:int, max_distance:int):
     global answer
     if idx == n or cnt == m:
