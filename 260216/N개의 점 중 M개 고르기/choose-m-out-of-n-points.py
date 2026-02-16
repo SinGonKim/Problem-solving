@@ -6,10 +6,12 @@ import sys
 sys.setrecursionlimit(10**6)
 def solution(idx:int, cnt:int, max_distance:int):
     global answer
-    if idx == n or cnt == m:
+    if cnt == m:
         answer = min(answer, max_distance if max_distance != 0 else sys.maxsize)
         return
-    
+    elif idx == n:
+        return
+        
     solution(idx+1, cnt, max_distance) # idx번째 포인터 패스
     target = points[idx]
     if stacks:
