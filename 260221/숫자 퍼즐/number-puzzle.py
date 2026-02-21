@@ -33,10 +33,10 @@ if __name__ == "__main__":
     for pos in range(n): # position 0 ~ n - 1
         length = n - pos # 뒤에 남은 길이
         maxx = rem // length # max
-        print("pos: ", pos, "maxx: ", maxx)
+
         for x in range(prev, maxx + 1):
             c = count(pos + 1, x, rem - x)
-            print("x: ", x, "c: ", c, 'k: ', k)
+
             if k > c:
                 k -= c
             else:
