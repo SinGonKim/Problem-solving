@@ -14,4 +14,7 @@ while right < n:
     answer = min(answer, abs(points[right][0] - points[left][0]))
     left += 1
     right = left + 1
-print(answer)
+if answer == sys.maxsize:
+    print(-1)
+else:
+    print(answer)
