@@ -29,7 +29,7 @@ def solve():
 
         # 조건 만족하면 l을 줄여가며 최소 폭 갱신
         while maxDQ and minDQ and ys[maxDQ[0]] - ys[minDQ[0]] >= D:
-            ans = min(ans, xs[r] - xs[l])
+            ans = min(ans, abs(xs[r] - xs[l]))
 
             # l이 빠질 때 덱 front에 있으면 제거
             if maxDQ[0] == l:
