@@ -5,20 +5,24 @@ word = input()
 
 que = deque()
 
+answer = 0
+
 for w in word:
     if len(que):
         s = que[-1]
-        if w == s: continue
-        elif w in s:
-            que.append(w)
+        if w == s:
+            continue
         else:
-            ns = s + w
-            que.pop()
+            x = s.rfind(w)
+            if x == -1:
+                ns = s + w
+            else:
+                ns = s[x+1:] + w
             que.append(ns)
     else:
+        answer = max(answer, len(w))
         que.append(w)
 
-answer = 0
 
 while que:
     s = que.popleft()
