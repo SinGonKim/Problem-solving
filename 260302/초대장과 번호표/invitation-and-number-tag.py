@@ -1,42 +1,33 @@
-N, G = map(int, input().split()) # 사람 수, 그룹 수
+from collections import deque
 
-group = []
-group_size = []
+n, g = tuple(map(int, input().split()))
 
-for _ in range(G):
-    nums = list(map(int, input().split()))
-    group_size.append(nums[0])
-    group.append(nums[1:])
+invited = [False for _ in range(n)]
 
-# Please write your code here.
-p = set()
-p.add(1)
+groups = [set() for _ in range(g)]
 
-while True:
-    tmp = []
-    tmp_size = []
-    if len(group) == 0: break
+people_groups = [[] for _ in range(n)]
 
-    for idx, g in enumerate(group):
-        if group_size[idx] == 0: continue
-        cnt = 0
-        res = []
-        for num in g:
-            if num in p:
-                cnt += 1
-            else:
-                res.append(num)
-        if cnt == group_size[idx] - 1:
-            p.add(res[0])
-        else:
-            tmp.append(res)
-            tmp_size.append(len(res))
-    if len(tmp_size) == len(group_size):
-        break
-    else:
-        group_size = tmp_size
-        group = tmp
-print(len(p))
+que = deque()
+ans = 0
 
+for i in range(g):
+    nums = list(map(int, input().split()))[1:]
+    for num in nums:
+        num -= 1
+        groups[i].add(num)
+        people_groups[num].append(i)
 
-    
+que.append(0)
+invited[0] = True
+while que:
+    x = que.popleft()
+    ans += 1
+    for g_num in people_groups[x]:
+        groups[g_num].remove(x)
+        if len(groups[g_num]) == 1:
+            p_num = list(groups[g_num])[0]
+            if not invited[p_num]:
+                invited[p_num] = True
+                que.append(p_num)
+print(ans)
