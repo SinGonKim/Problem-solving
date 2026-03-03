@@ -19,15 +19,4 @@ for query in queries:
         print(-1, -1)
     else:
         x, y = s[idx]
-        if query[0] == x:
-            while idx < n:
-                x, y = s[idx]
-                if query[1] <= y:
-                    print(x, y)
-                    break
-                idx += 1
-            else:
-                print(-1, -1)
-                continue
-        else:
-            print(x, y)
+        print(x, y)
