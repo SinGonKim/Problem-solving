@@ -13,9 +13,7 @@ s = SortedSet(points)
 
 for query in queries:
     idx = s.bisect_left(query)
-    if idx == 0:
-        print(-1, -1)
-    elif idx == n:
+    if idx == n:
         print(-1, -1)
     else:
         x, y = s[idx]
