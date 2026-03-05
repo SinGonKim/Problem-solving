@@ -6,16 +6,9 @@ query = list(map(int, input().split()))
 
 # Please write your code here.
 for q in query:
-    idx = sequence.bisect_left(q)
-    if idx >= n or idx < 0:
-        print(-1)
-    elif sequence[idx] == q:
-        print(sequence[idx])
-        sequence.remove(sequence[idx])
-        n -= 1
-    elif idx <= 0:
+    idx = sequence.bisect_right(q) - 1   # q 이하의 마지막 위치
+    if idx < 0:
         print(-1)
     else:
-        print(sequence[idx-1])
-        sequence.remove(sequence[idx-1])
-        n -= 1
+        print(sequence[idx])
+        sequence.pop(idx)                # 인덱스로 제거
