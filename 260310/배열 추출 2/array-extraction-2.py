@@ -27,8 +27,9 @@ for x in X:
             m = -heapq.heappop(m_heap)
             if p < abs(m):
                 print(p)
-                heapq.heappush(m_heap, m)
+                heapq.heappush(m_heap, -m)
             else:
                 print(m)
                 heapq.heappush(p_heap, p)
+
 
