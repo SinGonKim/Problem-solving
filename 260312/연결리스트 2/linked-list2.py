@@ -53,7 +53,7 @@ for _ in range(Q):
         cnode = Nodes[idx-1]
 
         if cnode.next is not None:
-            next_node = Node(cnode.next)
+            next_node = Nodes[cnode.next-1]
             next_node.prev = jdx
             node.next = cnode.next
         cnode.next = jdx
