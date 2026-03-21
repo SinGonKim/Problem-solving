@@ -1,23 +1,20 @@
-import heapq
-
 n = int(input())
-total = {i for i in range(1, 2*n+1)}
-answer = 0
 
-b = [int(input()) for _ in range(n)]
-a = list(total - set(b))
+a_cards = []
+b_cards = [int(input()) for _ in range(n)]
 
-heapq.heapify(b)
-heapq.heapify(a)
+b_set = set(b_cards)
 
-temp = heapq.heappop(b)
+a_cards = [num for num in range(1, 2*n+1) if num not in b_set]
 
-while True:
-    x = heapq.heappop(a)
-    if x > temp:
-        answer += 1
-        if len(b) and len(a):
-            temp = heapq.heappop(b)
-        else:
-            break
-print(answer)
+a_cards.sort()
+b_cards.sort()
+
+ans = 0
+b_idx = 0
+
+for a_idx in range(n):
+    if b_idx < n and a_cards[a_idx] > b_cards[b_idx]:
+        ans += 1
+        b_idx += 1
+print(ans)
