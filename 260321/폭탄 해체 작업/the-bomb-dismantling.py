@@ -6,16 +6,18 @@ t = 1
 bombs = []
 for i in range(N):
     p, e = map(int, input().split())
-    bombs.append((e, -p))
+    bombs.append((-p, e))
 import heapq
 heapq.heapify(bombs)
-
-while bombs:
-    e, m = heapq.heappop(bombs)
-    p = (-1)*(m)
-    if t <= e:
-        answer += p
-        t += 1
-    else:
-        continue
-print(answer)
+max_limit = max(x[1] for x in bomb)
+schedule = [False for _ in range(max_limit+1)]
+ans = 0
+while True:
+    m_score, limit = heapq.heappop(bombs)
+    score = (-1)*m_score
+    for d in range(limit,0,-1):
+        if not schedule:
+            schedule[d] = True
+            ans += score
+            break
+print(ans)
