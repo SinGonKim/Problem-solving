@@ -12,7 +12,7 @@ heapq.heapify(bombs)
 max_limit = max(x[1] for x in bombs)
 schedule = [False for _ in range(max_limit+1)]
 ans = 0
-while bom:
+while bombs:
     m_score, limit = heapq.heappop(bombs)
     score = (-1)*m_score
     for d in range(limit,0,-1):
