@@ -2,20 +2,19 @@ n = int(input())
 arr = list(map(int, input().split()))
 # Please write your code here.
 ans = 0
-from collections import deque
-max_stack = []
+min_stack = []
 
 
 for x in arr:
-    while max_stack:
-        y = max_stack.pop()
-        if y <= x: continue
+    while min_stack:
+        y = min_stack.pop()
+        if y >= x: continue
         else:
-            max_stack.append(y)
+            min_stack.append(y)
             break
-    if max_stack:
-        ans = max(ans, max_stack[-1] - x)
+    if min_stack:
+        ans = max(ans, x - min_stack[-1])
     else:
-        max_stack.append(x)
+        min_stack.append(x)
 print(ans)
         
