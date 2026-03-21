@@ -9,7 +9,7 @@ for i in range(N):
     bombs.append((-p, e))
 import heapq
 heapq.heapify(bombs)
-max_limit = max(x[1] for x in bomb)
+max_limit = max(x[1] for x in bombs)
 schedule = [False for _ in range(max_limit+1)]
 ans = 0
 while True:
