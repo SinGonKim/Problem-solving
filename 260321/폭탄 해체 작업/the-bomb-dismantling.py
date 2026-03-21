@@ -14,7 +14,6 @@ while bombs:
     e, m = heapq.heappop(bombs)
     p = (-1)*(m)
     if t <= e:
-        print(p, t)
         answer += p
         t += 1
     else:
